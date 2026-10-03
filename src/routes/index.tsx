@@ -115,8 +115,8 @@ function Section({ id, eyebrow, title, children, className = "" }: { id: string;
   );
 }
 
-const btnPrimary = "inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3 font-medium text-primary-foreground transition hover:glow hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
-const btnGhost = "inline-flex items-center justify-center gap-2 rounded-full border border-foreground/30 px-6 py-3 font-medium text-foreground transition hover:border-primary hover:text-primary";
+const btnPrimary = "inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 font-medium text-primary-foreground transition hover:glow hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring";
+const btnGhost = "inline-flex items-center justify-center gap-2 rounded-xl border border-foreground/30 px-6 py-3 font-medium text-foreground transition hover:border-primary hover:text-primary";
 
 /* ---------- page ---------- */
 
@@ -189,7 +189,7 @@ function Navbar() {
         </ul>
         <div className="flex items-center gap-2">
           <a href={CAFE.reserve} target="_blank" rel="noreferrer" className={`${btnPrimary} hidden !px-5 !py-2 text-sm sm:inline-flex`}>Book a Table</a>
-          <button className="grid h-10 w-10 place-items-center rounded-full border border-border md:hidden" aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} onClick={() => setMenu(!menu)}>
+          <button className="grid h-10 w-10 place-items-center rounded-lg border border-border md:hidden" aria-label={menu ? "Close menu" : "Open menu"} aria-expanded={menu} onClick={() => setMenu(!menu)}>
             {menu ? <X size={20} /> : <MenuIcon size={20} />}
           </button>
         </div>
@@ -209,7 +209,7 @@ function Navbar() {
 function OpenBadge({ open }: { open: boolean | null }) {
   if (open === null) return null;
   return (
-    <span className={`inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs font-medium ${open ? "border-success/50 text-success" : "border-destructive/50 text-destructive"}`}>
+    <span className={`inline-flex items-center gap-2 rounded-lg border px-3 py-1 text-xs font-medium ${open ? "border-success/50 text-success" : "border-destructive/50 text-destructive"}`}>
       <span className={`h-2 w-2 rounded-full ${open ? "animate-pulse bg-success" : "bg-destructive"}`} />
       {open ? "Open now" : "Closed now"}
     </span>
@@ -235,7 +235,7 @@ function Hero({ open }: { open: boolean | null }) {
         </div>
         <ul className="mt-10 flex flex-wrap gap-2">
           {badges.map((b) => (
-            <li key={b} className="glass rounded-full border border-border px-4 py-2 text-sm">{b}</li>
+            <li key={b} className="glass rounded-lg border border-border px-4 py-2 text-sm">{b}</li>
           ))}
         </ul>
       </div>
@@ -296,13 +296,25 @@ function MenuSection() {
     <Section id="menu" eyebrow="The menu" title={<>Everything here is <em className="text-primary">pure veg</em></>}>
       <div className="reveal relative mb-6 max-w-md">
         <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground" size={18} aria-hidden />
-        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search the menu — try “paneer”" aria-label="Search the menu" className="w-full rounded-full border border-input bg-card py-3 pl-11 pr-4 outline-none placeholder:text-muted-foreground focus:border-primary" />
+        <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search the menu — try “paneer”" aria-label="Search the menu" className="w-full rounded-xl border border-input bg-card py-3 pl-11 pr-4 outline-none placeholder:text-muted-foreground focus:border-primary" />
       </div>
       {!query && (
-        <div role="tablist" aria-label="Menu categories" className="-mx-5 flex gap-2 overflow-x-auto px-5 pb-2">
+        <div role="tablist" aria-label="Menu categories" className="flex flex-wrap items-center gap-2 pb-2">
           {MENU.map((t, i) => (
-            <button key={t.id} ref={(el) => { tabsRef.current[i] = el; }} role="tab" aria-selected={tab === t.id} tabIndex={tab === t.id ? 0 : -1} onKeyDown={(e) => onKey(e, i)} onClick={() => setTab(t.id)}
-              className={`shrink-0 rounded-full border px-4 py-2 text-sm transition ${tab === t.id ? "border-primary bg-primary text-primary-foreground" : "border-border text-foreground/80 hover:border-primary/60"}`}>
+            <button
+              key={t.id}
+              ref={(el) => { tabsRef.current[i] = el; }}
+              role="tab"
+              aria-selected={tab === t.id}
+              tabIndex={tab === t.id ? 0 : -1}
+              onKeyDown={(e) => onKey(e, i)}
+              onClick={() => setTab(t.id)}
+              className={`rounded-lg border px-3.5 py-2 text-sm font-medium transition ${
+                tab === t.id
+                  ? "border-primary bg-primary text-primary-foreground shadow-sm"
+                  : "border-border bg-card/60 text-foreground/80 hover:border-primary/60 hover:text-foreground"
+              }`}
+            >
               {t.label}
             </button>
           ))}
@@ -322,7 +334,7 @@ function MenuSection() {
                       <Leaf size={16} className="shrink-0 text-success" aria-label="Vegetarian" />
                       <span className="truncate">{item}</span>
                     </span>
-                    {special && <span className="shrink-0 rounded-full bg-primary/15 px-2.5 py-1 text-[11px] font-medium text-primary">Cafe Specialty</span>}
+                    {special && <span className="shrink-0 rounded-md bg-primary/15 px-2.5 py-1 text-[11px] font-medium text-primary">Cafe Specialty</span>}
                   </li>
                 );
               })}
