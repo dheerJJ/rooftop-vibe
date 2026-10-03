@@ -299,17 +299,23 @@ function MenuSection() {
         <input value={q} onChange={(e) => setQ(e.target.value)} placeholder="Search the menu — try “paneer”" aria-label="Search the menu" className="w-full rounded-xl border border-input bg-card py-3 pl-11 pr-4 outline-none placeholder:text-muted-foreground focus:border-primary" />
       </div>
       {!query && (
-        <div role="tablist" aria-label="Menu categories" className="flex flex-wrap items-center gap-2 pb-2">
+        <div
+          role="tablist"
+          aria-label="Menu categories"
+          className="grid grid-cols-2 gap-2 pb-2 sm:grid-cols-4 lg:flex lg:flex-nowrap lg:items-center lg:gap-1.5 xl:gap-2"
+        >
           {MENU.map((t, i) => (
             <button
               key={t.id}
-              ref={(el) => { tabsRef.current[i] = el; }}
+              ref={(el) => {
+                tabsRef.current[i] = el;
+              }}
               role="tab"
               aria-selected={tab === t.id}
               tabIndex={tab === t.id ? 0 : -1}
               onKeyDown={(e) => onKey(e, i)}
               onClick={() => setTab(t.id)}
-              className={`rounded-lg border px-3.5 py-2 text-sm font-medium transition ${
+              className={`rounded-lg border px-2.5 py-2 text-center text-xs font-medium transition sm:text-sm lg:shrink-0 lg:whitespace-nowrap lg:px-2.5 lg:py-2 lg:text-xs xl:px-3.5 xl:text-sm ${
                 tab === t.id
                   ? "border-primary bg-primary text-primary-foreground shadow-sm"
                   : "border-border bg-card/60 text-foreground/80 hover:border-primary/60 hover:text-foreground"
